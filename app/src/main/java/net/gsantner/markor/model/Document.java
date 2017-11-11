@@ -11,6 +11,8 @@
  */
 package net.gsantner.markor.model;
 
+import android.support.v4.provider.DocumentFile;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Document implements Serializable {
     private final static int MIN_HISTORY_DELAY = 2000; // [ms]
 
     private ArrayList<Document> _history = new ArrayList<>();
-    private File _file = null; // Full filepath (path + filename + extension)
+    private DocumentFile _file = null; // Full filepath (path + filename + extension)
     private String _title = "";  // The title of the document. May lead to a rename at save
     private String _fileExtension = ""; // Not versioned. folder(path) /  title + ext
     private String _content = "";
@@ -31,7 +33,7 @@ public class Document implements Serializable {
     public Document() {
     }
 
-    public Document(File file) {
+    public Document(DocumentFile file) {
         _file = file;
     }
 
@@ -108,11 +110,11 @@ public class Document implements Serializable {
         }
     }
 
-    public synchronized File getFile() {
+    public synchronized DocumentFile getFile() {
         return _file;
     }
 
-    public synchronized void setFile(File file) {
+    public synchronized void setFile(DocumentFile file) {
         if (!equalsc(getFile(), file)) {
             addToHistory();
             _file = file;
